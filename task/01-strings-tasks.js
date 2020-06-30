@@ -248,11 +248,16 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-
+/*
     return str.replace(/[a-zA-Z]/g, function (c) {
         return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26);
     });
-
+*/
+    
+    function rot13(math) {
+        return String.fromCharCode((math <= "Z" ? 90 : 122) >= (math = math.charCodeAt(0) + 13) ? math : math - 26);
+    }
+    return str.replace(/[a-zA-Z]/g, rot13);
 
     //throw new Error('Not implemented');
 }
