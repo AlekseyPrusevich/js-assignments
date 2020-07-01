@@ -81,7 +81,7 @@ function getAverage(value1, value2) {
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
 
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
 }
 
 /**
@@ -99,7 +99,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
 function getLinearEquationRoot(a, b) {
     return (-b) / a;
 
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
 }
 
 
