@@ -90,21 +90,17 @@ function timeSpanToString(startDate, endDate) {
    let dateDif = endDate - startDate;
    let date = new Date();
 
-   /*
    let hour = Math.floor(dateDif / 3.6e6);
    let min = Math.floor((dateDif - hour * 3.6e6) / 6e4);
    let sec = Math.floor((dateDif - hour * 3.6e6 - min * 6e4) / 1e3);
    let ms = dateDif - hour * 3.6e6 - min * 6e4 - sec * 1e3;
-
-
+/*
    date.setHours(Math.floor(dateDif / 3.6e6));
    date.setMinutes(Math.floor((dateDif % 3.6e6) / 6e4));
-   date.setSeconds(Math.floor((dateDif % 3.6e6 % 6e4) / 1e3));
+   date.setSegeconds(Math.floor((dateDif % 3.6e6 % 6e4) / 1e3));
    date.setMilliseconds(dateDif % 3.6e6 % 6e4 % 1e3);
-
-   return date.getHours();
-   */
-   throw new Error('Not implemented');
+*/
+   return ('0' + hour).slice(-2) + ':' + ('0' + min).slice(-2) + ':' + ('0' + sec).slice(-2) + '.' + (ms + '00').slice(0, 3);
 }
 
 
@@ -116,14 +112,33 @@ function timeSpanToString(startDate, endDate) {
  * @return {number}
  *
  * @example:
+ * 
  *    Date.UTC(2016,2,5, 0, 0) => 0
  *    Date.UTC(2016,3,5, 3, 0) => Math.PI/2
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+
+   /*
+   let minuteDegree = 0;
+   let hourDegree = 0;
+
+   let newDate = new Date(date);
+
+   minuteDegree = newDate.getUTCMinutes () * (360 / 60);
+   minuteDegree != 0 ? hourDegree = newDate.getUTCHours() * (360 / 12) + ((360 / 12) / (60 / minuteDegree)) : hourDegree = newDate.getUTCHours() * (360 / 12);
+
+   return Math.sin(Math.abs(minuteDegree - hourDegree));
+   */
+   /*
+   let degree = 0.5 * (60 * date.getUTCHours() - 11 *  date.getUTCHours());
+   let totalDegree = degree > 180 ? 360 - degree : degree;
+   return Math.PI/180 * totalDegree;
+   */
+   throw new Error('Not implemented');
 }
+
 
 
 module.exports = {
