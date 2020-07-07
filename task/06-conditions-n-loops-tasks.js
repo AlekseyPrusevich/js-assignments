@@ -30,7 +30,18 @@
  *
  */
 function getFizzBuzz(num) {
-    throw new Error('Not implemented');
+    let result;
+
+    if ((num % 3 === 0) && (num % 5 === 0)) 
+        result = 'FizzBuzz';
+    else if (num % 3 === 0) 
+        result = 'Fizz';
+    else if (num % 5 === 0) 
+        result = 'Buzz';
+    else 
+        result = num;
+
+    return result;
 }
 
 
@@ -46,7 +57,12 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    throw new Error('Not implemented');
+    let result = 1;
+
+    for (let i = 1; i <= n; i++)
+        result = result * i
+
+    return result;
 }
 
 
@@ -63,7 +79,12 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
+    let result = 0;
+
+    for (let i = n1; i <= n2; i++)
+        result = result + i
+
+    return result;
 }
 
 
@@ -82,7 +103,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    throw new Error('Not implemented');
+    return ((a < b+c) && (b < a+c) && (c < a+b)) ? true : false
 }
 
 
@@ -119,7 +140,13 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
+
+
+
     throw new Error('Not implemented');
+
+
+
 }
 
 
@@ -150,7 +177,13 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
+
+
+
     throw new Error('Not implemented');
+
+
+
 }
 
 
@@ -166,7 +199,31 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+
+    let searchChar;
+    let result = null;
+    let newStr = null;
+
+    OUTER_LOOP: for (let i = 0; i < str.length; i++)
+    {
+        searchChar = str[i];
+        newStr = str.replace(searchChar, '');        
+
+        INNER_LOOP: for (let j = 0; j < newStr.length; j++)
+        {   
+            if (searchChar == newStr[j])
+            {
+                break INNER_LOOP;
+            }
+            if (j+1 == newStr.length)
+            {
+                result = searchChar;
+                break OUTER_LOOP;
+            }  
+        }
+    }
+
+    return result;
 }
 
 
@@ -192,7 +249,27 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+
+    let firstBracket;
+    let secondBracket;
+    let firstNum;
+    let secondNum;
+
+    firstBracket = isStartIncluded ? "[" : "(";
+    secondBracket = isEndIncluded ? "]" : ")";
+
+    if (a < b) 
+    {
+        firstNum = a;
+        secondNum = b;
+    }
+    else 
+    {
+        firstNum = b;
+        secondNum = a;
+    }
+
+    return firstBracket + firstNum + ', ' + secondNum + secondBracket;
 }
 
 
@@ -209,6 +286,16 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
+
+    let newStr = '';
+
+    for (let i = str.length-1; i >= 0; i--)
+    {
+        newStr = newStr + str[i];
+    }
+
+    return newStr;
+
     throw new Error('Not implemented');
 }
 
@@ -226,6 +313,25 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
+
+    let chooseNum;
+    let newNum = '';
+    let numStr = num.toString();
+
+    console.log(numStr);
+
+    for (let i = 0; i <= numStr.length; i++)
+    {
+        console.log("i = " + i);
+        chooseNum = Math.floor(num % (10 * (10 ** i))/ (1 * (10 ** i)));
+        console.log(chooseNum);
+        newNum = newNum + chooseNum;
+        console.log(newNum);
+    }
+
+    newNum = +newNum / 10;
+
+    return newNum;
     throw new Error('Not implemented');
 }
 
