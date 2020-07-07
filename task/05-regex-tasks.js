@@ -31,6 +31,8 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
+   let reg = /^{([a-fA-F0-9]{8})-([a-fA-F0-9]{4})-([a-fA-F0-9]{4})-([a-fA-F0-9]{4})-([a-fA-F0-9]{12})}$/;
+   return reg;
    throw new Error('Not implemented');
 }
 
@@ -53,6 +55,8 @@ function getRegexForGuid() {
  *
  */
 function getRegexForPitSpot() {
+   let reg = /^([a-z]{1,13})$/;
+   return reg; 
    throw new Error('Not implemented');
 }
 
