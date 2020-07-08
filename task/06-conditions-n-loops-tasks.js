@@ -316,20 +316,12 @@ function reverseInteger(num) {
 
     let chooseNum;
     let newNum = '';
-    let numStr = num.toString();
 
-    console.log(numStr);
-
-    for (let i = 0; i <= numStr.length; i++)
+    for (let i = 0; i < num.toString().length; i++)
     {
-        console.log("i = " + i);
         chooseNum = Math.floor(num % (10 * (10 ** i))/ (1 * (10 ** i)));
-        console.log(chooseNum);
         newNum = newNum + chooseNum;
-        console.log(newNum);
     }
-
-    newNum = +newNum / 10;
 
     return newNum;
     throw new Error('Not implemented');
@@ -357,6 +349,27 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
+
+    let nCheck = 0;
+    let bEven = false;
+    let cDigit;
+    let nDigit;
+
+    for (let i = ccn.length - 1; i >= 0; i--) 
+    {
+		cDigit = ccn.charAt(i);
+		nDigit = parseInt(cDigit, 10);
+
+        if (bEven && (nDigit *= 2) > 9)
+        {
+            nDigit -= 9;
+        } 
+		nCheck += nDigit;
+		bEven = !bEven;
+	}
+
+	//return (nCheck % 10) == 0;
+
     throw new Error('Not implemented');
 }
 
@@ -376,6 +389,32 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
+
+    let chooseNum;
+    let newNum = 0;
+
+    OUTER_LOOP: for (let i = 0; i < num.toString().length; i++)
+    {
+        chooseNum = Math.floor(num % (10 * (10 ** i))/ (1 * (10 ** i)));
+        newNum = newNum + chooseNum;
+
+        console.log("Выбранное число - " + chooseNum);
+        console.log("Сумма чисел - " + newNum);
+        console.log("Цикл - " + i);
+        console.log("Число - " + ((num.toString().length) - 1));
+
+        if (newNum > 10 && i == (num.toString().length) - 1)
+        {
+            console.log("ЗАШЛИ В if");
+            num = newNum;
+            console.log(num);
+            continue OUTER_LOOP;
+        }
+
+    }
+
+    //return newNum;
+
     throw new Error('Not implemented');
 }
 
@@ -438,6 +477,88 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
+
+    let dateDif = endDate - startDate;
+    let message = "";
+
+
+
+    let years = Math.round(dateDif / 3.1536e10);
+    let mounths = Math.round(dateDif / 2.903e9);
+    let days = Math.round(dateDif / 8.64e7);
+    let hour = Math.round(dateDif / 3.6e6);
+    let min = Math.round(dateDif / 6e4);
+    let sec = Math.round(dateDif / 1e3);
+
+    console.log("Эрон-дон-дон: " + dateDif);
+
+    console.log(years);
+    console.log(mounths);
+    console.log(days);
+    console.log(hour);
+    console.log(min);
+    console.log(sec);
+
+    switch(true) {
+        case dateDif / 8.64e7 > 546:  
+        {
+            message = (Math.round(dateDif / 3.1536e10) + " years ago");
+            break;
+        }
+        case ((dateDif / 8.64e7) > 345) && ((dateDif / 8.64e7) <= 546):
+        {
+            message = "a year ago";
+            break;
+        }
+        case ((dateDif / 8.64e7) > 45) && ((dateDif / 8.64e7) <= 345):
+        {
+            message = (Math.round(dateDif / 2.903e9) + " months ago");
+            break;
+        }
+        case ((dateDif / 8.64e7) > 25) && ((dateDif / 8.64e7) <= 45):
+        {
+            message = "a month ago";
+            break;
+        }
+        case ((dateDif / 3.6e6) > 36) && ((dateDif / 8.64e7) <= 25):
+        {
+            message = (Math.round(dateDif / 8.64e7) + " days ago");
+            break;
+        }
+        case ((dateDif / 3.6e6) > 22) && ((dateDif / 3.6e6) <= 36):
+        {
+            message = "a day ago";
+            break;
+        }
+        case ((dateDif / 6e4) > 90) && ((dateDif / 3.6e6) <= 22):
+        {
+            message = (Math.round(dateDif / 3.6e6) + " hours ago");
+            break;
+        }
+        case ((dateDif / 6e4) > 45) && ((dateDif / 6e4) <= 90):
+        {
+            message = "an hour ago";
+            break;
+        }
+        case ((dateDif / 1e3) > 90) && ((dateDif / 6e4) <= 45):
+        {
+            message = (Math.round(dateDif / 6e4) + " minutes ago");
+            break;
+        }
+        case ((dateDif / 1e3) > 45) && ((dateDif / 1e3) <= 90):
+        {
+            message = "a minute ago";
+            break;
+        }
+        case (dateDif > 0) && ((dateDif / 1e3) <= 45):
+        {
+            message = "a few seconds ago";
+            break;
+        }
+    }
+
+    //return message;
+
     throw new Error('Not implemented');
 }
 
