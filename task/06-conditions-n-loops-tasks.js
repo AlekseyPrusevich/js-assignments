@@ -60,7 +60,7 @@ function getFactorial(n) {
     let result = 1;
 
     for (let i = 1; i <= n; i++)
-        result = result * i
+        result *= i;
 
     return result;
 }
@@ -142,6 +142,7 @@ function isTriangle(a,b,c) {
 function doRectanglesOverlap(rect1, rect2) {
 
 
+    if (rect1.top )
 
     throw new Error('Not implemented');
 
@@ -199,7 +200,6 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-
     let searchChar;
     let result = null;
     let newStr = null;
@@ -222,7 +222,6 @@ function findFirstSingleChar(str) {
             }  
         }
     }
-
     return result;
 }
 
@@ -295,8 +294,6 @@ function reverseString(str) {
     }
 
     return newStr;
-
-    throw new Error('Not implemented');
 }
 
 
@@ -324,7 +321,6 @@ function reverseInteger(num) {
     }
 
     return newNum;
-    throw new Error('Not implemented');
 }
 
 
@@ -348,29 +344,26 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
+
 function isCreditCardNumber(ccn) {
 
-    let nCheck = 0;
-    let bEven = false;
-    let cDigit;
-    let nDigit;
+    let sum = 0;
+    let evenChar = false;
+    let number;
 
-    for (let i = ccn.length - 1; i >= 0; i--) 
+    for (let i = ccn.toString().length - 1; i >= 0; i--) 
     {
-		cDigit = ccn.charAt(i);
-		nDigit = parseInt(cDigit, 10);
+        number = parseInt(ccn.toString().charAt(i), 10);
 
-        if (bEven && (nDigit *= 2) > 9)
+        if (evenChar && (number *= 2) > 9)
         {
-            nDigit -= 9;
+            number -= 9;
         } 
-		nCheck += nDigit;
-		bEven = !bEven;
-	}
+		sum += number;
+        evenChar = !evenChar;
+    }
 
-	//return (nCheck % 10) == 0;
-
-    throw new Error('Not implemented');
+	return (sum % 10) == 0;
 }
 
 
@@ -481,24 +474,6 @@ function timespanToHumanString(startDate, endDate) {
     let dateDif = endDate - startDate;
     let message = "";
 
-
-
-    let years = Math.round(dateDif / 3.1536e10);
-    let mounths = Math.round(dateDif / 2.903e9);
-    let days = Math.round(dateDif / 8.64e7);
-    let hour = Math.round(dateDif / 3.6e6);
-    let min = Math.round(dateDif / 6e4);
-    let sec = Math.round(dateDif / 1e3);
-
-    console.log("Эрон-дон-дон: " + dateDif);
-
-    console.log(years);
-    console.log(mounths);
-    console.log(days);
-    console.log(hour);
-    console.log(min);
-    console.log(sec);
-
     switch(true) {
         case dateDif / 8.64e7 > 546:  
         {
@@ -512,7 +487,7 @@ function timespanToHumanString(startDate, endDate) {
         }
         case ((dateDif / 8.64e7) > 45) && ((dateDif / 8.64e7) <= 345):
         {
-            message = (Math.round(dateDif / 2.903e9) + " months ago");
+            message = (Math.round(dateDif / 2.592e9) + " months ago");
             break;
         }
         case ((dateDif / 8.64e7) > 25) && ((dateDif / 8.64e7) <= 45):
@@ -522,7 +497,7 @@ function timespanToHumanString(startDate, endDate) {
         }
         case ((dateDif / 3.6e6) > 36) && ((dateDif / 8.64e7) <= 25):
         {
-            message = (Math.round(dateDif / 8.64e7) + " days ago");
+            message = (Math.round((dateDif-1) / 8.64e7) + " days ago");
             break;
         }
         case ((dateDif / 3.6e6) > 22) && ((dateDif / 3.6e6) <= 36):
@@ -532,7 +507,7 @@ function timespanToHumanString(startDate, endDate) {
         }
         case ((dateDif / 6e4) > 90) && ((dateDif / 3.6e6) <= 22):
         {
-            message = (Math.round(dateDif / 3.6e6) + " hours ago");
+            message = (Math.round((dateDif-1) / 3.6e6) + " hours ago");
             break;
         }
         case ((dateDif / 6e4) > 45) && ((dateDif / 6e4) <= 90):
@@ -542,7 +517,7 @@ function timespanToHumanString(startDate, endDate) {
         }
         case ((dateDif / 1e3) > 90) && ((dateDif / 6e4) <= 45):
         {
-            message = (Math.round(dateDif / 6e4) + " minutes ago");
+            message = (Math.round((dateDif-1) / 6e4) + " minutes ago");
             break;
         }
         case ((dateDif / 1e3) > 45) && ((dateDif / 1e3) <= 90):
@@ -556,10 +531,7 @@ function timespanToHumanString(startDate, endDate) {
             break;
         }
     }
-
-    //return message;
-
-    throw new Error('Not implemented');
+    return message;
 }
 
 
@@ -583,7 +555,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+    return num.toString(n);
 }
 
 
