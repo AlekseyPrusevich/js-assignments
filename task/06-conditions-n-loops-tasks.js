@@ -60,7 +60,7 @@ function getFactorial(n) {
     let result = 1;
 
     for (let i = 1; i <= n; i++)
-        result *= i;
+        result *= i;   
 
     return result;
 }
@@ -140,14 +140,12 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
+    let aLeftOfB = rect1.left + rect1.width < rect2.left;
+    let aRightOfB = rect1.left > rect2.left + rect2.width;
+    let aAboveB = rect1.top > rect2.top + rect2.height;
+    let aBelowB = rect1.top + rect1.height < rect2.top;
 
-
-    if (rect1.top )
-
-    throw new Error('Not implemented');
-
-
-
+    return !( aLeftOfB || aRightOfB || aAboveB || aBelowB );
 }
 
 
@@ -178,13 +176,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-
-
-
-    throw new Error('Not implemented');
-
-
-
+    return ((point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2 <= (circle.radius - 0.00001) ** 2);
 }
 
 
@@ -215,13 +207,14 @@ function findFirstSingleChar(str) {
             {
                 break INNER_LOOP;
             }
-            if (j+1 == newStr.length)
+            if (j + 1 == newStr.length)
             {
                 result = searchChar;
                 break OUTER_LOOP;
             }  
         }
     }
+
     return result;
 }
 
@@ -389,7 +382,7 @@ function getDigitalRoot(num) {
     OUTER_LOOP: for (let i = 0; i < num.toString().length; i++)
     {
         chooseNum = Math.floor(num % (10 * (10 ** i))/ (1 * (10 ** i)));
-        newNum = newNum + chooseNum;
+        newNum += chooseNum;
 
         console.log("Выбранное число - " + chooseNum);
         console.log("Сумма чисел - " + newNum);
@@ -400,7 +393,7 @@ function getDigitalRoot(num) {
         {
             console.log("ЗАШЛИ В if");
             num = newNum;
-            console.log(num);
+            console.log("Новый дом - " + num);
             continue OUTER_LOOP;
         }
 
@@ -531,6 +524,7 @@ function timespanToHumanString(startDate, endDate) {
             break;
         }
     }
+
     return message;
 }
 
@@ -572,7 +566,44 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+
+    let str = '';
+    let arrLen = pathes.length;
+    let arr1;
+    let arr2;
+    let arr3;
+
+    switch(arrLen)
+    {
+        case 2:
+        {
+            arr1 = pathes[0].split('/');
+            arr2 = pathes[1].split('/');
+        
+            for (let i = 0; i < arr1.length; i++)
+            {
+                if (arr1[i] == arr2[i])
+                    str += arr1[i] + '/';
+            }
+            break;
+        }
+        case 3:
+        {
+            arr1 = pathes[0].split('/');
+            arr2 = pathes[1].split('/');
+            arr3 = pathes[2].split('/');
+        
+            for (let i = 0; i < arr1.length; i++)
+            {
+                if ((arr1[i] == arr2[i])  && (arr2[i] == arr3[i]))
+                {
+                    str += arr1[i] + '/';
+                }
+            }
+            break;
+        }
+    }
+    return str;
 }
 
 
@@ -595,8 +626,29 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
+
+    let result = [];
+    let sum = 0;
+
+    for(let j = 0; j < m1.length; j++) 
+    {
+        result[j] = [];
+        for (let k = 0; k < m2[0].length; k++) 
+        {
+            sum = 0;
+            for(let i = 0; i < m2.length; i++) 
+            {
+                sum += m2[i][k] * m1[j][i];
+            }
+        result[j].push(sum);
+        }
+    }
+
+    return result;
     throw new Error('Not implemented');
 }
+
+
 
 
 /**
