@@ -119,23 +119,60 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-
-   /*
+/*
+   
    let minuteDegree = 0;
    let hourDegree = 0;
 
    let newDate = new Date(date);
 
-   minuteDegree = newDate.getUTCMinutes () * (360 / 60);
-   minuteDegree != 0 ? hourDegree = newDate.getUTCHours() * (360 / 12) + ((360 / 12) / (60 / minuteDegree)) : hourDegree = newDate.getUTCHours() * (360 / 12);
+   minuteDegree = newDate.getMinutes() * (360 / 60);
+   minuteDegree != 0 ? hourDegree = newDate.getHours() * (360 / 12) + ((360 / 12) / (60 / minuteDegree)) : hourDegree = newDate.getHours() * (360 / 12);
+
+   console.log("Время - " + date);
+   console.log("Минутная - " + minuteDegree);
+   console.log("Часовая - " + hourDegree);
+
+   console.log("Градусы - " + Math.sin(Math.abs(minuteDegree - hourDegree)));
+   console.log(" ");
 
    return Math.sin(Math.abs(minuteDegree - hourDegree));
-   */
-   /*
+   
    let degree = 0.5 * (60 * date.getUTCHours() - 11 *  date.getUTCHours());
    let totalDegree = degree > 180 ? 360 - degree : degree;
    return Math.PI/180 * totalDegree;
    */
+
+   let map = new Map();
+   let newDate = new Date(date);
+   let hour = newDate.getUTCHours();
+   let min = newDate.getUTCMinutes();
+   let hour2;
+   let mih;
+   let ang;
+   let result;
+
+   if (hour >= 12) hour -= 12;
+
+   map.set(0, 0)
+      .set(30, Math.PI / 6)
+      .set(45, Math.PI / 4)
+      .set(60, Math.PI / 3)
+      .set(90, Math.PI / 2)
+      .set(180, Math.PI);
+
+   hour2 = 0.5 * (60 * hour + min);
+   mih = 6 * min;
+   ang = Math.abs(hour2 - mih);
+
+   if (ang > 180) ang -= 180;
+
+   result = map.get(Math.abs(ang));
+
+   if (result == null && result == undefined) 
+      return ang * Math.PI / 180 
+   else 
+      return result;
    throw new Error('Not implemented');
 }
 
