@@ -376,32 +376,27 @@ function isCreditCardNumber(ccn) {
  */
 function getDigitalRoot(num) {
 
-    let chooseNum;
-    let newNum = 0;
+    let newNum = num;
+    let sum = 0;
 
-    OUTER_LOOP: for (let i = 0; i < num.toString().length; i++)
+    while (newNum.toString().length !== 1) 
     {
-        chooseNum = Math.floor(num % (10 * (10 ** i))/ (1 * (10 ** i)));
-        newNum += chooseNum;
+        sum += newNum % 10;
+        newNum = (newNum - newNum % 10) / 10;
 
-        console.log("Выбранное число - " + chooseNum);
-        console.log("Сумма чисел - " + newNum);
-        console.log("Цикл - " + i);
-        console.log("Число - " + ((num.toString().length) - 1));
-
-        if (newNum > 10 && i == (num.toString().length) - 1)
+        if (newNum.toString().length === 1) 
         {
-            console.log("ЗАШЛИ В if");
-            num = newNum;
-            console.log("Новый дом - " + num);
-            continue OUTER_LOOP;
-        }
+            sum += newNum;
 
+            if (sum > 9) 
+            {
+                newNum = sum;
+                sum = 0;
+            }
+        }
     }
 
-    //return newNum;
-
-    throw new Error('Not implemented');
+    return sum;
 }
 
 
@@ -427,7 +422,28 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+    let chars = str.split('');
+    let stack = [];
+    let open = ['{', '(', '[', '<'];
+    let close = ['}', ')', ']', '>'];
+    let closeIndex;
+    let openIndex;
+
+    for (let i = 0; i < chars.length; i++) 
+    {
+        openIndex = open.indexOf(chars[i]);
+        if (openIndex !== -1) stack.push(openIndex);
+        closeIndex = close.indexOf(chars[i]);
+        if (closeIndex !== -1) 
+        {
+            openIndex = stack.pop();
+            if (closeIndex !== openIndex) return false;
+        }
+    }
+
+    if (stack.length !== 0) return false;
+
+    return true;
 }
 
 
@@ -645,7 +661,6 @@ function getMatrixProduct(m1, m2) {
     }
 
     return result;
-    throw new Error('Not implemented');
 }
 
 
@@ -682,7 +697,49 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+
+    function comparison(arr1, arr2)
+    {
+        return JSON.stringify(arr1) == JSON.stringify(arr2);
+    }
+
+    let xArr =  ['X', 'X', 'X'];
+    let oArr =  ['0', '0', '0'];
+    let colArr = [];
+    let mainDiarArr = [];
+    let sideDiarArr = [];
+    let result = undefined;
+
+    for (let i = 0; i < position.length; i++)
+    {
+        
+        colArr.splice(0, colArr.length)
+
+        for (let j = 0; j < position[i].length; j++)
+        { 
+            colArr.push(position[j][i]);
+
+            if (i == j)
+                mainDiarArr[i] = position[i][j];
+
+            if (i + j == position.length - 1)
+                sideDiarArr[position.length - 1 - j] = position[i][j];
+        }
+
+        if (comparison(position[i], xArr) || comparison(colArr, xArr) || comparison(mainDiarArr, xArr) || comparison(sideDiarArr, xArr)) 
+        {
+            result = 'X';
+            break;
+        }
+
+        if (comparison(position[i], oArr) || comparison(colArr, oArr) || comparison(mainDiarArr, oArr) || comparison(sideDiarArr, oArr)) 
+        {
+            result = '0';
+            break;
+        }
+    }
+
+    return result;
 }
 
 
