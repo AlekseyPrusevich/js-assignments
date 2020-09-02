@@ -147,7 +147,7 @@ function* breadthTraversalTree(root) {
 
     for (let i = 0; i < stack.length; i++) {
         let currently = stack[i];
-
+        
         if (currently.children) 
             for (let j = 0; j < currently.children.length; j++)
                 stack.push(currently.children[j]);
@@ -171,7 +171,24 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    throw new Error('Not implemented');
+    let src1 = source1();
+    let src2  = source2();
+    let r1 = src1.next();
+    let r2 = src2.next();
+
+    while(true){        
+        
+        if(r2.done || r1.value < r2.value)
+        {
+            yield r1.value;
+            r1 = src1.next();
+        }
+        if(r1.done || r1.value > r2.value)
+        {
+            yield r2.value;
+            r2 = src2.next();
+        }
+    }
 }
 
 /**
@@ -190,7 +207,21 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    throw new Error('Not implemented');
+    let iterator = generator();
+    let result = iterator.next();
+
+    function Resolve(r) {
+        if (r.done) 
+        {
+            return r.value;
+        }
+
+        return Promise.resolve(r.value).then((response) => {
+            return Resolve(iterator.next(response));
+        });
+    }
+
+    return Resolve(result);
 }
 
 
